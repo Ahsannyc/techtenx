@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getSession } from '@auth0/nextjs-auth0';
+import { getSession } from '@auth0/nextjs-auth0/edge';
 import { redirect } from 'next/navigation';
 
 export default async function LoginPage() {

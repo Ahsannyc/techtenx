@@ -152,7 +152,7 @@ export default function WebsitesService() {
             </div>
             <div className="border-b border-white/10 pb-6">
               <h3 className="text-xl font-semibold mb-3 text-blue-400">Is it fast?</h3>
-              <p className="text-gray-400">Very. Our sites average <1s load time. Globally distributed CDN included.</p>
+              <p className="text-gray-400">Very. Our sites average &lt;1s load time. Globally distributed CDN included.</p>
             </div>
             <div className="pb-6">
               <h3 className="text-xl font-semibold mb-3 text-blue-400">Can I migrate from another builder?</h3>

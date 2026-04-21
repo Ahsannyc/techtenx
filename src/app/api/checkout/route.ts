@@ -1,4 +1,4 @@
-import { getSession } from '@auth0/nextjs-auth0';
+import { getSession } from '@auth0/nextjs-auth0/edge';
 import { createCheckoutSession, PRODUCTS } from '@/lib/stripe';
 
 export async function POST(request: Request) {

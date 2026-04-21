@@ -1,4 +1,4 @@
-import { getSession } from '@auth0/nextjs-auth0';
+import { getSession } from '@auth0/nextjs-auth0/edge';
 import { getUserByAuth0Id, getProjectById } from '@/lib/db';
 import { executeAgent } from '@/lib/agents';
 

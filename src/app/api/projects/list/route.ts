@@ -1,4 +1,4 @@
-import { getSession } from '@auth0/nextjs-auth0';
+import { getSession } from '@auth0/nextjs-auth0/edge';
 import { getUserByAuth0Id, getUserProjects } from '@/lib/db';
 
 export async function GET(request: Request) {
