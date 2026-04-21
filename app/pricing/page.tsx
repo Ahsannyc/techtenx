@@ -1,3 +1,15 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pricing | TechTenX - AI Agents & Automation",
+  description: "Simple, transparent pricing for AI agents and automation. Starter ($29), Pro ($99), or Enterprise plans.",
+  keywords: ["AI pricing", "automation pricing", "saas pricing"],
+  openGraph: {
+    title: "Pricing | TechTenX",
+    description: "Simple, transparent pricing plans for AI agents and automation."
+  }
+};
+
 'use client';
 
 import React from 'react';
