@@ -178,6 +178,44 @@ export type Database = {
           updated_at?: string;
         };
       };
+      websites: {
+        Row: {
+          id: string;
+          project_id: string;
+          user_id: string;
+          name: string;
+          description: string | null;
+          domain: string | null;
+          custom_domain: string | null;
+          theme: Record<string, any>;
+          pages: Record<string, any>[];
+          published_at: string | null;
+          version: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          project_id: string;
+          user_id: string;
+          name: string;
+          description?: string | null;
+          domain?: string | null;
+          custom_domain?: string | null;
+          theme?: Record<string, any>;
+          pages?: Record<string, any>[];
+          version?: number;
+        };
+        Update: {
+          name?: string;
+          description?: string | null;
+          domain?: string | null;
+          custom_domain?: string | null;
+          theme?: Record<string, any>;
+          pages?: Record<string, any>[];
+          published_at?: string | null;
+          updated_at?: string;
+        };
+      };
     };
   };
 };

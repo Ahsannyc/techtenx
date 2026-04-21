@@ -487,6 +487,109 @@ export async function deleteAutomation(id: string) {
 }
 
 // ============================================================================
+// WEBSITES TABLE OPERATIONS
+// ============================================================================
+
+export async function createWebsite(data: {
+  project_id: string;
+  user_id: string;
+  name: string;
+  description?: string;
+  template_id?: string;
+}) {
+  try {
+    const { data: website, error } = await supabaseServer
+      .from('websites')
+      .insert([
+        {
+          project_id: data.project_id,
+          user_id: data.user_id,
+          name: data.name,
+          description: data.description,
+          pages: [],
+          theme: {
+            colors: {},
+            fonts: {},
+            spacing: {},
+          },
+          version: 1,
+        },
+      ])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return website;
+  } catch (error) {
+    console.error('Error creating website:', error);
+    throw error;
+  }
+}
+
+export async function getWebsiteById(id: string) {
+  try {
+    const { data, error } = await supabaseServer
+      .from('websites')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error('Error fetching website:', error);
+    return null;
+  }
+}
+
+export async function getProjectWebsites(projectId: string) {
+  try {
+    const { data, error } = await supabaseServer
+      .from('websites')
+      .select('*')
+      .eq('project_id', projectId)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching websites:', error);
+    return [];
+  }
+}
+
+export async function updateWebsite(id: string, updates: any) {
+  try {
+    const { data, error } = await supabaseServer
+      .from('websites')
+      .update({ ...updates, updated_at: new Date().toISOString() })
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error('Error updating website:', error);
+    throw error;
+  }
+}
+
+export async function deleteWebsite(id: string) {
+  try {
+    const { error } = await supabaseServer
+      .from('websites')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+  } catch (error) {
+    console.error('Error deleting website:', error);
+    throw error;
+  }
+}
+
+// ============================================================================
 // HEALTH CHECK
 // ============================================================================
 
