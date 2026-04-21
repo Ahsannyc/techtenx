@@ -144,6 +144,40 @@ export type Database = {
           error_message?: string | null;
         };
       };
+      automations: {
+        Row: {
+          id: string;
+          project_id: string;
+          user_id: string;
+          name: string;
+          description: string | null;
+          trigger: Record<string, any>;
+          actions: Record<string, any>[];
+          is_active: boolean;
+          execution_count: number;
+          last_executed_at: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          project_id: string;
+          user_id: string;
+          name: string;
+          description?: string | null;
+          trigger: Record<string, any>;
+          actions: Record<string, any>[];
+          is_active?: boolean;
+          execution_count?: number;
+        };
+        Update: {
+          name?: string;
+          description?: string | null;
+          trigger?: Record<string, any>;
+          actions?: Record<string, any>[];
+          is_active?: boolean;
+          updated_at?: string;
+        };
+      };
     };
   };
 };

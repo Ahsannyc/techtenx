@@ -386,6 +386,107 @@ export async function getAgentExecutionById(executionId: string) {
 }
 
 // ============================================================================
+// AUTOMATIONS TABLE OPERATIONS
+// ============================================================================
+
+export async function createAutomation(data: {
+  project_id: string;
+  user_id: string;
+  name: string;
+  description?: string;
+  trigger: any;
+  actions: any[];
+  is_active: boolean;
+}) {
+  try {
+    const { data: automation, error } = await supabaseServer
+      .from('automations')
+      .insert([
+        {
+          project_id: data.project_id,
+          user_id: data.user_id,
+          name: data.name,
+          description: data.description,
+          trigger: data.trigger,
+          actions: data.actions,
+          is_active: data.is_active,
+        },
+      ])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return automation;
+  } catch (error) {
+    console.error('Error creating automation:', error);
+    throw error;
+  }
+}
+
+export async function getAutomationById(id: string) {
+  try {
+    const { data, error } = await supabaseServer
+      .from('automations')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error('Error fetching automation:', error);
+    return null;
+  }
+}
+
+export async function getProjectAutomations(projectId: string) {
+  try {
+    const { data, error } = await supabaseServer
+      .from('automations')
+      .select('*')
+      .eq('project_id', projectId)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching automations:', error);
+    return [];
+  }
+}
+
+export async function updateAutomation(id: string, updates: any) {
+  try {
+    const { data, error } = await supabaseServer
+      .from('automations')
+      .update({ ...updates, updated_at: new Date().toISOString() })
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error('Error updating automation:', error);
+    throw error;
+  }
+}
+
+export async function deleteAutomation(id: string) {
+  try {
+    const { error } = await supabaseServer
+      .from('automations')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+  } catch (error) {
+    console.error('Error deleting automation:', error);
+    throw error;
+  }
+}
+
+// ============================================================================
 // HEALTH CHECK
 // ============================================================================
 
