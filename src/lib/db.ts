@@ -309,6 +309,83 @@ export async function getUserAuditLogs(
 }
 
 // ============================================================================
+// AGENT EXECUTIONS TABLE OPERATIONS
+// ============================================================================
+
+export async function createAgentExecution(data: {
+  project_id: string;
+  user_id: string;
+  input_message: string;
+  output_message?: string;
+  tools_used?: string[];
+  input_tokens?: number;
+  output_tokens?: number;
+  execution_time_ms?: number;
+  status?: string;
+  error_message?: string;
+}) {
+  try {
+    const { data: execution, error } = await supabaseServer
+      .from('agent_executions')
+      .insert([
+        {
+          project_id: data.project_id,
+          user_id: data.user_id,
+          input_message: data.input_message,
+          output_message: data.output_message,
+          tools_used: data.tools_used || [],
+          input_tokens: data.input_tokens,
+          output_tokens: data.output_tokens,
+          execution_time_ms: data.execution_time_ms,
+          status: data.status || 'pending',
+          error_message: data.error_message,
+        },
+      ])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return execution;
+  } catch (error) {
+    console.error('Error creating agent execution:', error);
+    throw error;
+  }
+}
+
+export async function getAgentExecutions(projectId: string, limit = 50) {
+  try {
+    const { data, error } = await supabaseServer
+      .from('agent_executions')
+      .select('*')
+      .eq('project_id', projectId)
+      .order('created_at', { ascending: false })
+      .limit(limit);
+
+    if (error) throw error;
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching agent executions:', error);
+    return [];
+  }
+}
+
+export async function getAgentExecutionById(executionId: string) {
+  try {
+    const { data, error } = await supabaseServer
+      .from('agent_executions')
+      .select('*')
+      .eq('id', executionId)
+      .single();
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error('Error fetching agent execution:', error);
+    return null;
+  }
+}
+
+// ============================================================================
 // HEALTH CHECK
 // ============================================================================
 

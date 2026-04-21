@@ -116,6 +116,34 @@ export type Database = {
           user_agent?: string | null;
         };
       };
+      agent_executions: {
+        Row: {
+          id: string;
+          project_id: string;
+          user_id: string;
+          input_message: string;
+          output_message: string | null;
+          tools_used: string[];
+          input_tokens: number | null;
+          output_tokens: number | null;
+          execution_time_ms: number | null;
+          status: string;
+          error_message: string | null;
+          created_at: string;
+        };
+        Insert: {
+          project_id: string;
+          user_id: string;
+          input_message: string;
+          output_message?: string | null;
+          tools_used?: string[];
+          input_tokens?: number | null;
+          output_tokens?: number | null;
+          execution_time_ms?: number | null;
+          status?: string;
+          error_message?: string | null;
+        };
+      };
     };
   };
 };
