@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import CalendlyEmbed from '@/components/CalendlyEmbed';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -18,22 +19,39 @@ export default function ContactPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Log form data (in production, send to backend)
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        message: '',
-        phone: '',
-        planInterest: 'Not Sure'
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
       });
-    }, 3000);
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          message: '',
+          phone: '',
+          planInterest: 'Not Sure'
+        });
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        alert('Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -167,9 +185,10 @@ export default function ContactPage() {
 
                   <button
                     type="submit"
-                    className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-semibold hover:scale-105 transition-all"
+                    disabled={isLoading}
+                    className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-semibold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Send Message
+                    {isLoading ? 'Sending...' : 'Send Message'}
                   </button>
                 </form>
               )}
@@ -182,12 +201,7 @@ export default function ContactPage() {
                 <p className="text-gray-400 mb-6">
                   See TechTenX in action. Our team will show you exactly how we can help.
                 </p>
-                <div className="bg-blue-900/20 border border-blue-500/30 rounded-2xl p-8 min-h-96">
-                  <p className="text-gray-400 text-center mt-40">
-                    📅 Calendly widget<br />
-                    <span className="text-sm">(embed code: calendly.com/yourname)</span>
-                  </p>
-                </div>
+                <CalendlyEmbed />
               </div>
 
               <div className="bg-zinc-900 border border-white/10 rounded-3xl p-8">
