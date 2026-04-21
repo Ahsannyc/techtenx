@@ -6,6 +6,7 @@ import TestimonialSlider from '@/components/TestimonialSlider';
 import AnimatedTitle from '@/components/AnimatedTitle';
 import AnimatedCard from '@/components/AnimatedCard';
 import Navigation from '@/components/Navigation';
+import NewsletterSignup from '@/components/NewsletterSignup';
 
 export default function Home() {
   return (
@@ -76,6 +77,13 @@ export default function Home() {
               Read all testimonials →
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-20 border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-6">
+          <NewsletterSignup />
         </div>
       </section>
 

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import NewsletterSignup from '@/components/NewsletterSignup';
 
 export default function BlogPage() {
   const posts = [
@@ -129,15 +130,10 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Newsletter CTA */}
       <section className="px-6 py-20 border-t border-white/10">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-semibold mb-8">Subscribe for Updates</h2>
-          <p className="text-gray-400 mb-8">Get the latest AI automation tips and resources delivered to your inbox.</p>
-          <div className="flex gap-3 max-w-md mx-auto">
-            <input type="email" placeholder="your@email.com" className="flex-1 bg-zinc-800 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-blue-500 focus:outline-none" />
-            <button className="px-6 py-3 bg-blue-600 rounded-lg font-semibold hover:bg-blue-700">Subscribe</button>
-          </div>
+        <div className="max-w-4xl mx-auto">
+          <NewsletterSignup />
         </div>
       </section>
 
