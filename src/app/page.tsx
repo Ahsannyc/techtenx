@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import AIDemo from '@/components/AIDemo';
 
 export default function Home() {
   return (
@@ -83,6 +84,9 @@ export default function Home() {
       <footer className="py-12 border-t border-white/10 text-center text-sm text-gray-500">
         © 2026 TechTenX. Building the future, one AI system at a time.
       </footer>
+
+      {/* AI Demo Widget */}
+      <AIDemo />
     </main>
   );
 }
