@@ -2,6 +2,7 @@
 
 import React from 'react';
 import AIDemo from '@/components/AIDemo';
+import TestimonialSlider from '@/components/TestimonialSlider';
 
 export default function Home() {
   return (
@@ -77,6 +78,21 @@ export default function Home() {
                 <p className="text-gray-400">{service.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-4xl font-semibold text-center mb-12">What Our Users Say</h2>
+          <div className="min-h-80">
+            <TestimonialSlider />
+          </div>
+          <div className="text-center mt-8">
+            <a href="/testimonials" className="text-blue-400 hover:text-blue-300 font-semibold">
+              Read all testimonials →
+            </a>
           </div>
         </div>
       </section>
