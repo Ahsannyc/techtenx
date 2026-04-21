@@ -590,6 +590,122 @@ export async function deleteWebsite(id: string) {
 }
 
 // ============================================================================
+// TEAMS TABLE OPERATIONS
+// ============================================================================
+
+export async function createTeam(data: {
+  user_id: string;
+  name: string;
+  description?: string;
+}) {
+  try {
+    const { data: team, error } = await supabaseServer
+      .from('teams')
+      .insert([
+        {
+          user_id: data.user_id,
+          name: data.name,
+          description: data.description,
+          member_count: 1,
+        },
+      ])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return team;
+  } catch (error) {
+    console.error('Error creating team:', error);
+    throw error;
+  }
+}
+
+export async function getTeamById(id: string) {
+  try {
+    const { data, error } = await supabaseServer
+      .from('teams')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error('Error fetching team:', error);
+    return null;
+  }
+}
+
+export async function getTeamMembers(teamId: string) {
+  try {
+    const { data, error } = await supabaseServer
+      .from('team_members')
+      .select('*')
+      .eq('team_id', teamId);
+
+    if (error) throw error;
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching team members:', error);
+    return [];
+  }
+}
+
+export async function inviteTeamMember(data: {
+  team_id: string;
+  email: string;
+  role: string;
+  token: string;
+  expires_at: string;
+  created_by: string;
+}) {
+  try {
+    const { data: invitation, error } = await supabaseServer
+      .from('team_invitations')
+      .insert([data])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return invitation;
+  } catch (error) {
+    console.error('Error inviting team member:', error);
+    throw error;
+  }
+}
+
+export async function updateTeamMember(memberId: string, updates: any) {
+  try {
+    const { data, error } = await supabaseServer
+      .from('team_members')
+      .update(updates)
+      .eq('id', memberId)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error('Error updating team member:', error);
+    throw error;
+  }
+}
+
+export async function removeTeamMember(memberId: string) {
+  try {
+    const { error } = await supabaseServer
+      .from('team_members')
+      .delete()
+      .eq('id', memberId);
+
+    if (error) throw error;
+  } catch (error) {
+    console.error('Error removing team member:', error);
+    throw error;
+  }
+}
+
+// ============================================================================
 // HEALTH CHECK
 // ============================================================================
 

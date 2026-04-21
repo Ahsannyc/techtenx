@@ -216,6 +216,83 @@ export type Database = {
           updated_at?: string;
         };
       };
+      teams: {
+        Row: {
+          id: string;
+          user_id: string;
+          name: string;
+          description: string | null;
+          member_count: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          user_id: string;
+          name: string;
+          description?: string | null;
+          member_count?: number;
+        };
+        Update: {
+          name?: string;
+          description?: string | null;
+          member_count?: number;
+          updated_at?: string;
+        };
+      };
+      team_members: {
+        Row: {
+          id: string;
+          team_id: string;
+          user_id: string | null;
+          email: string;
+          name: string | null;
+          role: string;
+          status: string;
+          joined_at: string | null;
+          invited_at: string | null;
+          created_at: string;
+        };
+        Insert: {
+          team_id: string;
+          user_id?: string | null;
+          email: string;
+          name?: string | null;
+          role?: string;
+          status?: string;
+          joined_at?: string | null;
+          invited_at?: string | null;
+        };
+        Update: {
+          role?: string;
+          status?: string;
+          user_id?: string | null;
+        };
+      };
+      team_invitations: {
+        Row: {
+          id: string;
+          team_id: string;
+          email: string;
+          role: string;
+          token: string;
+          expires_at: string;
+          status: string;
+          created_by: string;
+          created_at: string;
+        };
+        Insert: {
+          team_id: string;
+          email: string;
+          role: string;
+          token: string;
+          expires_at: string;
+          created_by: string;
+          status?: string;
+        };
+        Update: {
+          status?: string;
+        };
+      };
     };
   };
 };
