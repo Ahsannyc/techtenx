@@ -17,20 +17,10 @@ export default async function DashboardPage() {
         <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
           <Link href="/" className="font-semibold text-2xl">TechTenX</Link>
           <div className="flex items-center gap-6">
-            <Link href="/dashboard" className="text-blue-400">Dashboard</Link>
-            <div className="flex items-center gap-3">
-              {user.picture && (
-                <img
-                  src={user.picture}
-                  alt={user.name || 'User'}
-                  className="w-10 h-10 rounded-full"
-                />
-              )}
-              <div>
-                <p className="text-sm font-medium">{user.name}</p>
-                <p className="text-xs text-gray-400">{user.email}</p>
-              </div>
-            </div>
+            <Link href="/dashboard" className="text-blue-400 hover:text-blue-300">Dashboard</Link>
+            <Link href="/dashboard/projects" className="hover:text-blue-400">Projects</Link>
+            <Link href="/dashboard/billing" className="hover:text-blue-400">Billing</Link>
+            <Link href="/account/settings" className="hover:text-blue-400">Settings</Link>
             <a href="/api/auth/logout" className="text-red-400 hover:text-red-300 text-sm">
               Logout
             </a>
